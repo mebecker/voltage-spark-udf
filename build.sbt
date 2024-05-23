@@ -1,4 +1,4 @@
-name := "com-voltage-udf"
+name := "com-contoso-udf"
 
 version := "0.1"
 

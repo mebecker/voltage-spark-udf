@@ -3,9 +3,7 @@ package com.contoso
 import com.voltage.securedata.enterprise.{LibraryContext, FPE, VeException}
 import org.apache.spark.sql.functions.udf
 import scala.collection.mutable
-import java.io.PrintWriter
 import java.io.StringWriter
-import scala.io.Source
 
 object voltageUDFs {
 
@@ -13,7 +11,7 @@ object voltageUDFs {
     System.load("/Volumes/adb_cus_01/foo/voltage/libvibesimplejava.so")
 
     val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
-    val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))    
+    val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))
 
     val fpeMap = mutable.Map[String, FPE]()
 
@@ -32,7 +30,6 @@ object voltageUDFs {
         catch {
             case e : VeException => { 
                 //this is a very hacky way to easily get failure details on a cell by cell basis - not production ready
-                // getStackTrace(e)
                 e.getDetailedMessage()
              }
         }
@@ -49,11 +46,5 @@ object voltageUDFs {
                                 .build()
         } 
         fpeMap(config)
-    }
-
-    def getStackTrace(exception: Exception) : String = {
-        val sw = new StringWriter
-        exception.printStackTrace(new PrintWriter(sw)) 
-        sw.toString()
     }
 }

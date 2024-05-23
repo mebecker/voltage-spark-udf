@@ -1,0 +1,18 @@
+{
+    "changes": [
+      {
+        "principal": "admin@mngenvmcap126710.onmicrosoft.com",
+        "add": [
+          "READ_VOLUME"
+        ],
+        "remove": []
+      },
+      {
+        "principal": "mike@mngenvmcap126710.onmicrosoft.com",
+        "add": [
+          "READ_VOLUME"
+        ],
+        "remove": []
+      }
+    ]
+  }

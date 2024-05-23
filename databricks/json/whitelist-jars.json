@@ -1,0 +1,8 @@
+{
+  "artifact_matchers": [
+    {
+      "artifact": "/Volumes/adb_cus_01/default/voltage/com-contoso-udf-assembly-0.1.jar",
+      "match_type": "PREFIX_MATCH"
+    }
+  ]
+}
