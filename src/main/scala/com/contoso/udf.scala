@@ -8,7 +8,7 @@ import java.io.StringWriter
 object voltageUDFs {
 
     //obviously should not be hard coded in a real implementation
-    System.load("/Volumes/adb_cus_01/foo/voltage/libvibesimplejava.so")
+    System.load("/Volumes/adb_cus_01/default/voltage/libvibesimplejava.so")
 
     val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
     val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))
@@ -30,7 +30,7 @@ object voltageUDFs {
         catch {
             case e : VeException => { 
                 //this is a very hacky way to easily get failure details on a cell by cell basis - not production ready
-                e.getDetailedMessage()
+                f"!!EXCEPTION!!: ${e.getMessage}" 
              }
         }
     }
