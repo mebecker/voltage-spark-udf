@@ -1,8 +1,16 @@
 {
   "artifact_matchers": [
     {
-      "artifact": "/Volumes/adb_cus_01/default/voltage/com-contoso-udf-assembly-0.1.jar",
+      "artifact": "/Volumes/voltage-integration/default/lib/com-contoso-udf-assembly-0.1.jar",
       "match_type": "PREFIX_MATCH"
-    }
+    },
+    {
+      "artifact": "/Volumes/voltage-integration/default/lib/vibesimplejava.jar",
+      "match_type": "PREFIX_MATCH"
+    },
+    {
+      "artifact": "/Volumes/voltage-integration/default/lib/libvibesimplejava.so",
+      "match_type": "PREFIX_MATCH"
+    }        
   ]
 }
