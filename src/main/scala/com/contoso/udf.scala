@@ -8,7 +8,7 @@ import java.io.StringWriter
 object voltageUDFs {
 
     //obviously should not be hard coded in a real implementation
-    System.load("/Volumes/adb_cus_01/default/voltage/libvibesimplejava.so")
+    System.load("/Volumes/voltage-integration/default/lib/libvibesimplejava.so")
 
     val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
     val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))
