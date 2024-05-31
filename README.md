@@ -18,6 +18,9 @@ Here's some sample code to encrypt data in spark using scala. There's a sample c
 import com.contoso.voltageUDFs._
 
 val clearTextDf = spark.read.format("csv").option("header","true").load("/home/mike/code/voltage-spark-udf/data/test.csv")
+
+clearTextDf.show
+
 val lowerCaseCryptoConfig = lit("LowerCaseAlphaNumeric|accounts22@dataprotection.voltage.com|voltage123")
 
 clearTextDf
