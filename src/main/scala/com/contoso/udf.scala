@@ -7,7 +7,6 @@ import java.io.StringWriter
 
 class voltageUDFs(voltageSharedObjectPath: String, voltagePolicyURL: String) extends Serializable {
 
-    //obviously should not be hard coded in a real implementation
     println("Load library...")
     System.load(voltageSharedObjectPath)
 
@@ -16,7 +15,6 @@ class voltageUDFs(voltageSharedObjectPath: String, voltagePolicyURL: String) ext
 
     val fpeMap = mutable.Map[String, FPE]()
 
-    //obviously paths should not be hard coded in real implementation
     lazy val libraryContext = {
         new LibraryContext.Builder()
             .setPolicyURL(voltagePolicyURL)
