@@ -5,10 +5,11 @@ import org.apache.spark.sql.functions.udf
 import scala.collection.mutable
 import java.io.StringWriter
 
-object voltageUDFs {
+class voltageUDFs(voltageSharedObjectPath: String, voltagePolicyURL: String) extends Serializable {
 
     //obviously should not be hard coded in a real implementation
-    System.load("/Volumes/voltage-integration/default/lib/libvibesimplejava.so")
+    println("Load library...")
+    System.load(voltageSharedObjectPath)
 
     val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
     val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))
@@ -18,7 +19,7 @@ object voltageUDFs {
     //obviously paths should not be hard coded in real implementation
     lazy val libraryContext = {
         new LibraryContext.Builder()
-            .setPolicyURL("https://voltage-pp-0000.dataprotection.voltage.com/policy/clientPolicy.xml")
+            .setPolicyURL(voltagePolicyURL)
             .setTrustStorePath("/etc/ssl/certs")
             .build()
     }
