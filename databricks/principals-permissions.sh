@@ -1,7 +1,7 @@
 #! /bin/bash
 users=("mike@mngenvmcap126710.onmicrosoft.com" "admin@mngenvmcap126710.onmicrosoft.com")
 groupName="voltage-users"
-volumeFullName="adb_cus_01.default.voltage"
+volumeFullName="voltage-integration.default.lib"
 sleepInterval=5s
 
 groupId=$(databricks account groups list --output json | jq -r '.[] | select(.displayName == '\"$groupName\"').id')
