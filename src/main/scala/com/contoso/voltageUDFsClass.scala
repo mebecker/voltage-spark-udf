@@ -3,24 +3,14 @@ package com.contoso
 import com.voltage.securedata.enterprise.{LibraryContext, FPE, VeException}
 import org.apache.spark.sql.functions.udf
 import scala.collection.mutable
-import java.io.StringWriter
 
-class voltageUDFs(voltageSharedObjectPath: String, voltagePolicyURL: String) extends Serializable {
-
-    println("Load library...")
-    System.load(voltageSharedObjectPath)
-
-    val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
-    val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))
+class voltageUDFsClass(libPath: String, policyURL: String) extends Serializable {
+    System.load(libPath)
 
     val fpeMap = mutable.Map[String, FPE]()
-
-    lazy val libraryContext = {
-        new LibraryContext.Builder()
-            .setPolicyURL(voltagePolicyURL)
-            .setTrustStorePath("/etc/ssl/certs")
-            .build()
-    }
+    
+    val decrypt = udf((cipherText: String, config: String) => cryptoImplementation(cipherText, true, config))
+    val encrypt = udf((plainText: String, config: String) => cryptoImplementation(plainText, false, config))   
 
     def cryptoImplementation(text: String, decrypt: Boolean, config: String) = {
         try {
@@ -32,18 +22,24 @@ class voltageUDFs(voltageSharedObjectPath: String, voltagePolicyURL: String) ext
                 f"!!EXCEPTION!!: ${e.getMessage}" 
              }
         }
-    }
+    }    
 
     def getFPE(config: String) : FPE = {
         if(!fpeMap.contains(config)) {
             println("Create FPE with config: " + config)
             val configArray = config.split('|')
+
+            val libraryContext = new LibraryContext.Builder()
+                .setPolicyURL(policyURL)
+                .setTrustStorePath("/etc/ssl/certs")
+                .build()            
+
             fpeMap(config) = libraryContext
                                 .getFPEBuilder(configArray(0))
                                 .setIdentity(configArray(1))
                                 .setSharedSecret(configArray(2))
                                 .build()
         } 
-        fpeMap(config)
-    }
+        fpeMap(config)       
+    }    
 }
